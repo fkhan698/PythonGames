@@ -1,5 +1,6 @@
 import pygame
 import random
+import os
 
 # initialize Pygame
 pygame.init()
@@ -8,6 +9,8 @@ pygame.init()
 WINDOW_WIDTH = 500
 WINDOW_HEIGHT = 600
 window = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+background_image = pygame.image.load(os.path.join('TestGame/Assets', 'CloudChaser.png'))
+background_image = pygame.transform.scale(background_image, (WINDOW_WIDTH, WINDOW_HEIGHT))
 pygame.display.set_caption('Dodger')
 
 # set up the game clock
@@ -26,13 +29,23 @@ BLOCK_HEIGHT = 10
 block_list = []
 block_speed = 3
 
+# 
+
 # set up the score
 score = 0
 font = pygame.font.SysFont(None, 36)
 
+# draw window
+
+def draw_window():
+    window.blit(background_image, (0,0))
+    pygame.display.update()
+
 # game loop
 game_over = False
 while not game_over:
+
+    
     # handle events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -79,8 +92,9 @@ while not game_over:
     score_text = font.render(f'Score: {score}', True, (0, 0, 0))
     window.blit(score_text, (10, 10))
 
+
     # update the display
-    pygame.display.update()
+    draw_window()
 
     # tick the clock
     clock.tick(60)
